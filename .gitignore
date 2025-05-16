@@ -1,0 +1,5 @@
+.cache/
+.vs/
+build/
+CmakeUserPresets.json
+compile_commands.json
