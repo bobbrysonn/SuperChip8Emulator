@@ -34,6 +34,24 @@ void chip8_cycle(chip8_t *chip8)
 
     switch (chip8->opcode & 0xF000)
     {
+        case 0x0000: {
+            switch (chip8->opcode & 0x00FF)
+            {
+                /* CLS: Clear the display */
+                case 0xE0: {
+                    chip8_clear_graphics(chip8);
+                    break;
+                }
+
+                /* RET: Set pc to addr on top of stack. Substract 1 from sp */
+                case 0xEE: {
+                    chip8->sp -= 1;
+                    chip8->pc = chip8->stack[chip8->sp];
+                    return;
+                }
+            }
+        }
+
         default: {
             fprintf(stderr, "Unknown opcode: 0x%04X\n", chip8->opcode);
         }
